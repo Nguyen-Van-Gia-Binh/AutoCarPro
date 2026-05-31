@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    web.xml — Cấu hình triển khai ứng dụng web AutoWash Pro.
+
+    === VAI TRÒ ===
+    File này được Tomcat đọc khi khởi động ứng dụng. Nó định nghĩa:
+    1. Welcome file: Trang mặc định khi truy cập gốc "/"
+    2. Session timeout: Thời gian tự động đăng xuất khi không hoạt động
+    3. Error pages: Trang lỗi tùy chỉnh (404, 500)
+    4. Encoding filter: Đảm bảo UTF-8 cho tiếng Việt
+
+    === LƯU Ý ===
+    Filter và Servlet mapping sử dụng @WebFilter/@WebServlet annotations
+    trong Java code, nên KHÔNG cần khai báo lại ở đây (tránh trùng lặp).
+-->
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!-- Tên ứng dụng hiển thị trong Tomcat Manager -->
+    <display-name>AutoWash Pro</display-name>
+
+    <!-- =============================================
+         WELCOME FILE: Trang mặc định khi truy cập "/"
+         =============================================
+         Khi user truy cập http://localhost:8080/AutoWashPro/
+         → Tomcat tìm file "index.jsp" → nếu không có → tìm "index.html"
+         → Trong index.jsp, ta redirect tới /login
+    -->
+    <welcome-file-list>
+        <welcome-file>login</welcome-file>
+    </welcome-file-list>
+
+    <!-- =============================================
+         SESSION TIMEOUT: 30 phút
+         =============================================
+         Nếu user không thao tác trong 30 phút → session tự hết hạn.
+         Khi request tiếp theo đến → AuthorizationFilter phát hiện
+         session null → redirect về /login.
+    -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <!-- =============================================
+         ERROR PAGES: Trang lỗi tùy chỉnh
+         =============================================
+         Thay vì hiển thị trang lỗi mặc định xấu xí của Tomcat,
+         ta chuyển hướng tới các trang JSP đẹp hơn.
+    -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/500.jsp</location>
+    </error-page>
+
+</web-app>

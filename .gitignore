@@ -1,0 +1,35 @@
+# Ignore Maven build output
+target/
+
+# Ignore Docs folder as requested
+Docs/
+
+# Ignore IDE settings and configurations
+.idea/
+.vscode/
+nb-configuration.xml
+nbproject/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Ignore compiled class files
+*.class
+
+# Ignore packaged applications
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Ignore log files
+*.log
+logs/
+
+# Ignore OS-specific files
+Thumbs.db
+.DS_Store
